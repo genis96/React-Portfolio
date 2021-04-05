@@ -1,13 +1,27 @@
+// import { Button } from 'bootstrap';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Button } from '../Home/Button'
 
 
 function Navbar() {
     // update the state from what it was to what i want it to be
     const [click, setClick] = useState(false);
+    const [button, setButton] = useState(true);
     // reversing the state below for burger
     const handleClick = () => setClick(!click);
     const closeBurger = () => setClick(false);
+
+    const showButton = () => {
+        if(window.innerWidth <= 960) {
+            setButton(false)
+        } else {
+            setButton(true);
+        }
+    };
+
+    window.addEventListener('resize', showButton);
+
     return (
         <div>
             <nav className="navbar">
@@ -32,13 +46,14 @@ function Navbar() {
                             <Link to="/skills" className="nav-links" onClick="closeBurger">Skills</ Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/contactme" className="nav-links" onClick="closeBurger">Contact Me</ Link>
+                            <Link to="/contactme" className="nav-links-burger" onClick="closeBurger">Contact Me</ Link>
                         </li>
                     </ul>
+                    {button && <Button buttonStyle='btn--outline'>GitHub</Button>}
                 </div>
             </nav>
         </div>
     )
 }
 
-export default Navbar
+export default Navbar;
